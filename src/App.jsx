@@ -2289,7 +2289,237 @@
 // 13
 
 
-import React, { useState } from "react";
+// import React, { useState } from "react";
+// import { motion, AnimatePresence } from "framer-motion";
+// import confetti from "canvas-confetti";
+// import { Howl } from "howler";
+
+// // Local assets import
+// import Img1 from "./assets/6.jpg";
+// import Img2 from "./assets/1.jpg";
+// import Img3 from "./assets/2.jpg";
+// import Img4 from "./assets/3.jpg";
+// import Img5 from "./assets/4.jpg";
+
+// // Local sound files
+// import POP_SOUND from "./assets/audio.mp3";
+// // import SUCCESS_SOUND from "./assets/audio.mp3";
+// // import HAPPY_BIRTHDAY_SOUND from "./assets/audio.mp3";
+
+// const FINAL_IMAGES = [Img1, Img2, Img3, Img4, Img5];
+// const FINAL_MESSAGES = [
+//   "আজকের দিনটা শুধু তোমার — হাসিতে ভরে উঠুক প্রতিটি মুহূর্ত। ❤️",
+//   "শুভ জন্মদিন! জীবনের প্রতিটি দিন হোক আনন্দে ভরা। 🌸",
+//   "তোমার হাসি আজকে আরও উজ্জ্বল হোক, সুখের প্রতিটি মুহূর্ত উপভোগ করো। 🌸",
+//   "একটি নতুন বছরের শুরু, আনন্দে ভরা থাকুক প্রতিটি মুহূর্ত। 💖",
+//   "জন্মদিনের শুভেচ্ছা! হাসি ও ভালোবাসা সর্বদা তোমার সঙ্গে থাকুক। 🌟"
+// ];
+
+// export default function App() {
+//   const [stage, setStage] = useState(0);
+//   const [heartHits, setHeartHits] = useState(0);
+//   const [balloonsLeft, setBalloonsLeft] = useState(3);
+//   const [selected, setSelected] = useState(null);
+//   const [hint, setHint] = useState("");
+//   const [heartPos, setHeartPos] = useState(randomPos());
+//   const [emojiPositions, setEmojiPositions] = useState(randomEmojiPositions());
+//   const [finalImage, setFinalImage] = useState(null);
+//   const [finalMessage, setFinalMessage] = useState("");
+
+//   const playSound = (src, opts = {}) => {
+//     try { new Howl({ src: [src], volume: opts.volume ?? 0.7 }).play(); } catch {}
+//   };
+
+//   const startConfetti = (duration = 3000) => {
+//     const end = Date.now() + duration;
+//     (function frame() {
+//       confetti({ particleCount: 7, angle: 60, spread: 60, origin: { x: Math.random(), y: Math.random() * 0.8 } });
+//       if (Date.now() < end) requestAnimationFrame(frame);
+//     })();
+//   };
+
+//   function randomPos(margin = 10) { 
+//     const top = margin + Math.random() * (60 - margin*2);
+//     const left = margin + Math.random() * (80 - margin*2);
+//     return { top: `${top}vh`, left: `${left}%` };
+//   }
+
+//   function randomEmojiPositions(count = 6) { 
+//     return Array.from({ length: count }).map(() => randomPos(15));
+//   }
+
+//   const beginAdventure = () => { 
+//     setStage(1); 
+//     setHint("হার্ট ধরো! ❤️"); 
+//     startConfetti(1000); 
+//   };
+
+//   const handleHeartClick = () => {
+//     playSound(POP_SOUND);
+//     setHeartHits(h => {
+//       const nh = h + 1;
+//       if (nh >= 3) setTimeout(() => { setStage(2); setHint("বেলুন ফাটাও 🎈"); startConfetti(1200); }, 500);
+//       return nh;
+//     });
+//     setHeartPos(randomPos());
+//   };
+
+//   const popBalloon = () => {
+//     playSound(POP_SOUND);
+//     setBalloonsLeft(n => {
+//       const nn = n - 1;
+//       if (nn <= 0) setTimeout(() => { setStage(3); setHint("সঠিক ইমোজি বেছে নাও 💖"); setEmojiPositions(randomEmojiPositions(6)); startConfetti(1200); }, 400);
+//       return nn;
+//     });
+//   };
+
+//   const chooseEmoji = emo => {
+//     setSelected(emo);
+//     if (emo === "💖") {
+//       playSound(SUCCESS_SOUND);
+//       const randImg = FINAL_IMAGES[Math.floor(Math.random() * FINAL_IMAGES.length)];
+//       const randMsg = FINAL_MESSAGES[Math.floor(Math.random() * FINAL_MESSAGES.length)];
+//       setFinalImage(randImg);
+//       setFinalMessage(randMsg);
+
+//       // 🎵 লোকাল বার্থডে মিউজিক বাজানো
+//       new Howl({
+//         src: [HAPPY_BIRTHDAY_SOUND],
+//         volume: 0.5,
+//         autoplay: true
+//       });
+
+//       setTimeout(() => { 
+//         setStage(4); 
+//         setHint(""); 
+//         startConfetti(3500); 
+//       }, 700);
+//     } else {
+//       playSound(POP_SOUND, { volume: 0.4 });
+//       setHint("ভুল হয়েছে 🙂");
+//       setTimeout(() => setHint("সঠিক ইমোজি বেছে নাও 💖"), 1200);
+//     }
+//   };
+
+//   const restart = () => {
+//     setStage(0);
+//     setHeartHits(0);
+//     setBalloonsLeft(3);
+//     setSelected(null);
+//     setHint("");
+//     setEmojiPositions(randomEmojiPositions(6));
+//     setFinalImage(null);
+//     setFinalMessage("");
+//   };
+
+//   const Stars = () => Array.from({ length: 20 }).map((_, i) => (
+//     <motion.div key={i} className="absolute bg-white rounded-full" style={{ width: Math.random() * 4 + 3, height: Math.random() * 4 + 3, top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%` }} animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: Math.random() * 3 + 2, repeat: Infinity }} />
+//   ));
+
+//   return (
+//     <div className="min-h-screen flex items-center justify-center p-8 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #ffafbd, #ffc3a0, #2193b0, #6dd5ed)", backgroundSize: "600% 600%", animation: "gradientBG 15s ease infinite" }}>
+//       <Stars />
+//       <div className="w-full max-w-3xl relative z-10">
+//         <div className="bg-white/60 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-10">
+//           <div className="mb-4 text-center">
+//             <motion.p className="text-lg md:text-2xl font-semibold text-gray-800 min-h-[2rem]" animate={{ opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1.5 }}>{hint}</motion.p>
+//           </div>
+
+//           <div className="min-h-[400px] relative">
+//             <AnimatePresence>
+//               {stage === 0 && (
+//                 <motion.div key="start" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center justify-center py-8">
+//                   <motion.button 
+//                     onClick={beginAdventure} 
+//                     whileHover={{ scale: 1.1, rotate: 5 }} 
+//                     whileTap={{ scale: 0.95 }} 
+//                     className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white px-8 py-5 md:px-12 md:py-6 rounded-full font-extrabold shadow-2xl text-xl md:text-3xl" 
+//                     style={{ animation: "swing 2s infinite" }}
+//                   >
+//                     শুরু করো 🎯
+//                   </motion.button>
+//                 </motion.div>
+//               )}
+
+//               {stage === 1 && (
+//                 <motion.button 
+//                   onClick={handleHeartClick} 
+//                   key="heart" 
+//                   style={{ position: "absolute", ...heartPos }}
+//                   whileTap={{ scale: 0.9 }} 
+//                   className="w-20 h-20 md:w-36 md:h-36 rounded-full flex items-center justify-center bg-gradient-to-br from-red-400 via-pink-300 to-yellow-300 shadow-2xl text-5xl md:text-8xl"
+//                 >
+//                   ❤️
+//                 </motion.button>
+//               )}
+
+//               {stage === 2 && balloonsLeft > 0 && Array.from({ length: balloonsLeft }).map((_, i) => (
+//                 <motion.button 
+//                   key={i} 
+//                   onClick={popBalloon} 
+//                   style={{ position: "absolute", ...randomPos() }} 
+//                   whileHover={{ scale: 1.2 }} 
+//                   whileTap={{ scale: 0.9 }} 
+//                   className="w-20 h-28 md:w-28 md:h-36 rounded-b-full bg-gradient-to-br from-red-400 via-pink-500 to-purple-400 shadow-lg flex items-end justify-center text-4xl md:text-5xl"
+//                 >
+//                   🎈
+//                 </motion.button>
+//               ))}
+
+//               {stage === 3 && ["🌟", "🎈", "💖", "🎵", "😊", "🍰"].map((emo, idx) => (
+//                 <motion.button 
+//                   key={emo} 
+//                   onClick={() => chooseEmoji(emo)} 
+//                   style={{ position: "absolute", ...emojiPositions[idx] }} 
+//                   whileHover={{ scale: 1.3 }} 
+//                   whileTap={{ scale: 0.95 }} 
+//                   className={`p-4 md:p-6 rounded-xl shadow-md bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-200 text-4xl md:text-6xl ${selected === emo ? "ring-4 ring-pink-300" : ""}`}
+//                 >
+//                   {emo}
+//                 </motion.button>
+//               ))}
+
+//               {stage === 4 && finalImage && (
+//                 <motion.div key="final" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center gap-6 py-6">
+//                   <h1 className="text-3xl md:text-5xl font-extrabold text-pink-600 animate-pulse">🎉 শুভ জন্মদিন, সাহারা 🎉</h1>
+//                   <motion.img 
+//                     src={finalImage} 
+//                     alt="Celebration" 
+//                     className="w-40 h-40 md:w-60 md:h-60 rounded-full object-cover border-4 border-white shadow-xl max-w-full"
+//                   />
+//                   <p className="max-w-xl text-center text-gray-800 text-lg md:text-xl">{finalMessage}</p>
+//                   <button 
+//                     onClick={() => startConfetti(2500)} 
+//                     className="px-6 py-3 md:px-8 md:py-4 text-white rounded-full shadow-lg text-lg md:text-xl bg-gradient-to-r from-green-400 to-blue-500"
+//                   >
+//                     চিয়ার্স! 🎊
+//                   </button>
+//                   <button 
+//                     onClick={restart} 
+//                     className="px-6 py-3 md:px-8 md:py-4 border rounded-full shadow-lg text-lg md:text-xl bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 text-white"
+//                   >
+//                     আবার খেলো 🔄
+//                   </button>
+//                 </motion.div>
+//               )}
+//             </AnimatePresence>
+//           </div>
+//         </div>
+//       </div>
+
+//       <style>{`
+//         @keyframes swing { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(3deg); } 75% { transform: rotate(-3deg); } }
+//         @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
+//       `}</style>
+//     </div>
+//   );
+// }
+
+
+
+// 14
+
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import { Howl } from "howler";
@@ -2301,10 +2531,11 @@ import Img3 from "./assets/2.jpg";
 import Img4 from "./assets/3.jpg";
 import Img5 from "./assets/4.jpg";
 
-// Local sound files
-import POP_SOUND from "./assets/audio.mp3";
-// import SUCCESS_SOUND from "./assets/audio.mp3";
-// import HAPPY_BIRTHDAY_SOUND from "./assets/audio.mp3";
+// Local audio import
+import CELEBRATION_AUDIO from "./assets/audio1.mp3";
+
+const POP_SOUND = "https://www.soundjay.com/misc/sounds/pop-1.mp3";
+const SUCCESS_SOUND = "https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3";
 
 const FINAL_IMAGES = [Img1, Img2, Img3, Img4, Img5];
 const FINAL_MESSAGES = [
@@ -2325,6 +2556,19 @@ export default function App() {
   const [emojiPositions, setEmojiPositions] = useState(randomEmojiPositions());
   const [finalImage, setFinalImage] = useState(null);
   const [finalMessage, setFinalMessage] = useState("");
+  const [celebrationAudio, setCelebrationAudio] = useState(null);
+
+  useEffect(() => {
+    if (stage === 4) {
+      // Final stage এ গেলে লোকাল গান চালানো
+      const audio = new Howl({ src: [CELEBRATION_AUDIO], volume: 0.7 });
+      audio.play();
+      setCelebrationAudio(audio);
+    } else {
+      // অন্য stage এ গেলে গান বন্ধ
+      if (celebrationAudio) celebrationAudio.stop();
+    }
+  }, [stage]);
 
   const playSound = (src, opts = {}) => {
     try { new Howl({ src: [src], volume: opts.volume ?? 0.7 }).play(); } catch {}
@@ -2339,7 +2583,7 @@ export default function App() {
   };
 
   function randomPos(margin = 10) { 
-    const top = margin + Math.random() * (60 - margin*2);
+    const top = margin + Math.random() * (80 - margin*2);
     const left = margin + Math.random() * (80 - margin*2);
     return { top: `${top}vh`, left: `${left}%` };
   }
@@ -2381,19 +2625,7 @@ export default function App() {
       const randMsg = FINAL_MESSAGES[Math.floor(Math.random() * FINAL_MESSAGES.length)];
       setFinalImage(randImg);
       setFinalMessage(randMsg);
-
-      // 🎵 লোকাল বার্থডে মিউজিক বাজানো
-      new Howl({
-        src: [HAPPY_BIRTHDAY_SOUND],
-        volume: 0.5,
-        autoplay: true
-      });
-
-      setTimeout(() => { 
-        setStage(4); 
-        setHint(""); 
-        startConfetti(3500); 
-      }, 700);
+      setTimeout(() => { setStage(4); setHint(""); startConfetti(3500); }, 700);
     } else {
       playSound(POP_SOUND, { volume: 0.4 });
       setHint("ভুল হয়েছে 🙂");
@@ -2410,6 +2642,7 @@ export default function App() {
     setEmojiPositions(randomEmojiPositions(6));
     setFinalImage(null);
     setFinalMessage("");
+    if (celebrationAudio) celebrationAudio.stop();
   };
 
   const Stars = () => Array.from({ length: 20 }).map((_, i) => (
