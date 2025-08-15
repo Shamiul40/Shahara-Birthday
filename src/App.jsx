@@ -2714,7 +2714,7 @@ export default function App() {
 
               {stage === 4 && finalImage && (
                 <motion.div key="final" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center gap-6 py-6">
-                  <h1 className="text-3xl md:text-5xl font-extrabold text-pink-600 animate-pulse">🎉 শুভ জন্মদিন, সাহারা 🎉</h1>
+                  <h1 className="text-2xl md:text-5xl font-extrabold text-pink-600 animate-pulse">শুভ জন্মদিন, সাহারা 🎉</h1>
                   <motion.img 
                     src={finalImage} 
                     alt="Celebration" 
